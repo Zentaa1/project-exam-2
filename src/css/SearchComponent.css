@@ -1,0 +1,19 @@
+/* Placeholder overlay for Flatpickr input */
+.placeholder-overlay {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #a0a0a0; /* Light gray color for placeholder text */
+    pointer-events: none; /* Makes the placeholder text unclickable */
+    font-size: 1rem;
+    z-index: 1;
+  }
+  
+  /* Style for Flatpickr input */
+  .flatpickr-input {
+    position: relative;
+    z-index: 2;
+    background-color: transparent; /* Ensure Flatpickr input is transparent */
+  }
+  
