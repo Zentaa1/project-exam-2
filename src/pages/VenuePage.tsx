@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar"; // Make sure this package is installed
 import "react-calendar/dist/Calendar.css"; // Default styles (overridden by custom CSS)
 import getVenues from "../functions/api/getVenue";
-import { FaMapPin } from "react-icons/fa";
+import { FaCar, FaCoffee, FaMapPin, FaPaw, FaWifi } from "react-icons/fa";
 
 // Interfaces
 interface Customer {
@@ -104,8 +104,7 @@ const VenuePage = () => {
             : null;
 
     return (
-        <div className="flex flex-wrap">
-            {/* Left Section: Venue Details */}
+        <div className="flex flex-wrap font-inter mt-10">
             <div className="flex flex-col w-full md:w-1/2 p-4 text-left">
                 <img
                     src={venue.media[0]?.url || "https://via.placeholder.com/400"}
@@ -118,10 +117,9 @@ const VenuePage = () => {
                     <FaMapPin className="text-xl mr-2" />
                     <p>{venue.location.country || "Some Place"}</p>
                 </div>
-                <p className="text-gray-800">Max Guests: {venue.maxGuests}</p>
+                <p className="text-gray-800 mt-6">Max Guests: {venue.maxGuests}</p>
+                <button className="bg-customOrange p-2 rounded-lg font-bold mt-6">Book now</button>
             </div>
-
-            {/* Right Section: Calendar and Bookings */}
             <div className="flex flex-col w-full md:w-1/2 p-4">
                 <h2 className="text-xl font-semibold mb-4">Available dates</h2>
                 <div className="flex justify-center">
@@ -129,6 +127,20 @@ const VenuePage = () => {
                         tileClassName={tileClassName}
                         className="react-calendar"
                     />
+                </div>
+                <div className="mt-10 grid grid-cols-2 gap-4 justify-items-center">
+                    <p className={`${venue.meta.breakfast ? "" : "line-through text-gray-400"} flex items-center justify-center`}>
+                        <FaCoffee className="mr-2" /> Breakfast
+                    </p>
+                    <p className={`${venue.meta.parking ? "" : "line-through text-gray-400"} flex items-center justify-center`}>
+                        <FaCar className="mr-2" /> Parking
+                    </p>
+                    <p className={`${venue.meta.pets ? "" : "line-through text-gray-400"} flex items-center justify-center`}>
+                        <FaPaw className="mr-2" /> Pets
+                    </p>
+                    <p className={`${venue.meta.wifi ? "" : "line-through text-gray-400"} flex items-center justify-center`}>
+                        <FaWifi className="mr-2" /> WiFi
+                    </p>
                 </div>
             </div>
         </div>
