@@ -83,7 +83,6 @@ const VenuePage = () => {
         return <div>Loading...</div>;
     }
 
-    // Generate blocked dates for the calendar
     const blockedDates = venue.bookings?.reduce<Date[]>((dates, booking) => {
         const startDate = new Date(booking.dateFrom);
         const endDate = new Date(booking.dateTo);
