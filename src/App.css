@@ -40,3 +40,50 @@
 .read-the-docs {
   color: #888;
 }
+
+.react-calendar {
+  border: none;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  max-width: 400px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.react-calendar__tile {
+  text-align: center;
+  padding: 0.8rem;
+  margin: 0.2rem;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+}
+
+.react-calendar__tile--now {
+  background: #90caf9;
+  color: white;
+  font-weight: bold;
+}
+
+.react-calendar__tile--active {
+  background: #42a5f5;
+  color: white;
+}
+
+.booked-date {
+  background-color: #ffebee !important;
+  color: #d32f2f !important;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: not-allowed;
+}
+

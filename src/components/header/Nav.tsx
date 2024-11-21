@@ -11,7 +11,7 @@ const Nav = () => {
                 </div>
                 <nav>
                     <ul className="flex space-x-6 text-xl font-semibold">
-                    <li>Rent out your place</li>
+                    <Link to='/rentout'>Rent out your place</Link>
                     <Link to='/contact'>Contact Us</Link>
                     <Link to='/about'>About Us</Link>
                     <Link to='/register'>Register</Link>

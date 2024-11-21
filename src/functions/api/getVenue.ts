@@ -1,20 +1,22 @@
 import axios from "axios";
 import { API_BASE, API_HOLIDAZE, API_VENUES } from "../auth/constants";
-import { load } from "../localStorage/load";
 
-export default async function getVenues() {
+export default async function getVenues(id?: string, includeOwner = true, includeBookings = true) {
     try {
-        const response = await axios.get(
-            `${API_BASE}${API_HOLIDAZE}${API_VENUES}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${load("token")}`,
-                    "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
-                },
-            }
-        );
+        let url = `${API_BASE}${API_HOLIDAZE}${API_VENUES}`;
+        if (id) {
+            url = `${url}/${id}?_owner=${includeOwner}&_bookings=${includeBookings}`;
+        }
 
-        console.log(response.data)
+        console.log("Fetching URL:", url); // Debug log
+
+        const response = await axios.get(url, {
+            headers: {
+                "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
+            },
+        });
+
+        console.log("API Response:", response.data);
 
         return response.data.data;
     } catch (error) {
@@ -22,3 +24,4 @@ export default async function getVenues() {
         throw new Error("Failed to fetch venues.");
     }
 }
+

@@ -50,6 +50,8 @@ const PopularVenues = () => {
         fetchVenues();
     }, []);
 
+    const generateVenuePageLink = (venue: Venue) => `/venues/${venue.id}`;
+
 
     return (
         <div className="text-primary font-inter text-left mt-10">
@@ -90,7 +92,8 @@ const PopularVenues = () => {
                 </div>
                 <div className="flex flex-row bg-customOrange rounded-b-lg justify-between items-center p-2">
                   <div>
-                    <button className="bg-white text-primary p-2 rounded-lg font-medium text-md">More Info</button>
+                    <a
+                    className="bg-white text-primary p-2 rounded-lg font-medium text-md" href={generateVenuePageLink(venue)}>More Info</a>
                   </div>
                   <div className="flex flex-col text-right">
                     <p className="font-bold text-2xl">{venue.price} USD</p>

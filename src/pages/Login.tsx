@@ -48,7 +48,7 @@ const Login = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-                    <button type="submit" className="bg-customOrange text-xl w-full p-2 rounded-md mt-5">Login</button>
+                    <button type="submit" className="bg-customOrange w-full mt-5 font-bold text-xl p-2 rounded-md">Login</button>
                 </form>
             <p className="text-left">Dont have an account? <Link className="text-customOrange" to='/register'>Sign up here</Link></p>
         </div>
