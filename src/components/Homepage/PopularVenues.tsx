@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import getVenues from "../../functions/api/getVenue"
 import { FaMapPin, FaCoffee, FaCar, FaPaw, FaWifi } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface Location {
     country: string;
@@ -106,7 +107,7 @@ const PopularVenues = () => {
             <p>Loading venues...</p>
           )}
         </div>
-        <button className="text-xl mt-2">View all Venues</button>
+        <Link to='/venues' className="text-xl mt-2">View all Venues</Link> 
         </div>
       );
 }

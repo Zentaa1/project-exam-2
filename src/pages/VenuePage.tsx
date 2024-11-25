@@ -63,6 +63,10 @@ interface Venue {
 const VenuePage = () => {
     const [venue, setVenue] = useState<Venue | null>(null);
     const { venueId } = useParams();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDates, setSelectedDates] = useState<[Date | null, Date | null]>([null, null]);
+    const [formattedDates, setFormattedDates] = useState<{ dateFrom: string; dateTo: string } | null>(null);
+    const [guests, setGuests] = useState(1);
 
     useEffect(() => {
         const fetchVenue = async () => {
@@ -103,6 +107,35 @@ const VenuePage = () => {
             ? "booked-date"
             : null;
 
+    const handleDateChange = (range: [Date | null, Date | null]) => {
+        setSelectedDates(range);
+
+        if (range[0] && range[1]) {
+            setFormattedDates({
+                dateFrom: range[0].toISOString(),
+                dateTo: range[1].toISOString(),
+            });
+        } else {
+            setFormattedDates(null);
+        }
+    };
+
+
+    const handleBooking = () => {
+        if (selectedDates[0] && selectedDates[1]) {
+            console.log("Booking details:", {
+                dateFrom: selectedDates[0].toISOString(),
+                dateTo: selectedDates[1].toISOString(),
+                guests,
+            });
+            setIsModalOpen(false);
+        } else {
+            alert("Please select both check-in and check-out dates.");
+        }
+    };
+    
+    
+
     return (
         <div className="flex flex-wrap font-inter mt-10">
             <div className="flex flex-col w-full md:w-1/2 p-4 text-left">
@@ -118,7 +151,12 @@ const VenuePage = () => {
                     <p>{venue.location.country || "Some Place"}</p>
                 </div>
                 <p className="text-gray-800 mt-6">Max Guests: {venue.maxGuests}</p>
-                <button className="bg-customOrange p-2 rounded-lg font-bold mt-6">Book now</button>
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="bg-customOrange p-2 rounded-lg font-bold mt-6"
+                >
+                    Book now
+                </button>
             </div>
             <div className="flex flex-col w-full md:w-1/2 p-4">
                 <h2 className="text-xl font-semibold mb-4">Available dates</h2>
@@ -143,6 +181,47 @@ const VenuePage = () => {
                     </p>
                 </div>
             </div>
+
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
+                        <h2 className="text-xl font-bold mb-4">Select Your Stay</h2>
+                        <Calendar
+                            selectRange={true}
+                            onChange={(dates) =>
+                                handleDateChange(dates as [Date | null, Date | null])
+                            }
+                            tileClassName={tileClassName}
+                            className="react-calendar"
+                        />
+                        <div className="mt-4">
+                            <label className="block font-medium">Number of Guests</label>
+                            <input
+                                type="number"
+                                value={guests}
+                                onChange={(e) => setGuests(Number(e.target.value))}
+                                className="border p-2 rounded w-full"
+                                min={1}
+                                max={venue.maxGuests}
+                            />
+                        </div>
+                        <div className="mt-6 flex justify-between">
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="bg-gray-300 p-2 rounded-lg font-medium"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleBooking}
+                                className="bg-customOrange p-2 rounded-lg font-medium text-white"
+                            >
+                                Confirm
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
