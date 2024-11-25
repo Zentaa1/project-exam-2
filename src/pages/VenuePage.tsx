@@ -123,6 +123,7 @@ const VenuePage = () => {
 
     const handleBooking = () => {
         if (selectedDates[0] && selectedDates[1]) {
+            console.log(formattedDates)
             console.log("Booking details:", {
                 dateFrom: selectedDates[0].toISOString(),
                 dateTo: selectedDates[1].toISOString(),
