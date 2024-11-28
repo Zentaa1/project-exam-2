@@ -13,7 +13,7 @@ export default async function login({
 }: LoginOptions) {
   try {
     const response = await axios.post(
-      `${API_BASE}${API_AUTH}${API_LOGIN}`,
+      `${API_BASE}${API_AUTH}${API_LOGIN}?_holidaze=true`,
       { email, password },
       {
         headers: {

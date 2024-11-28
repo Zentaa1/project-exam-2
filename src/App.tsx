@@ -10,6 +10,7 @@ import Register from './pages/Register'
 import RentOut from './pages/RentOut'
 import VenuePage from './pages/VenuePage'
 import Venues from './pages/Venues'
+import Profile from './pages/Profile'
 function App() {
 
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/rentout' element={<RentOut />} />
         <Route path='/venues' element={<Venues />} />
         <Route path='/venues/:venueId' element={<VenuePage />} />
+        <Route path='/profile/:username' element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )

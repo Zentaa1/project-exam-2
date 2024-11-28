@@ -4,6 +4,7 @@ import Calendar from "react-calendar"; // Make sure this package is installed
 import "react-calendar/dist/Calendar.css"; // Default styles (overridden by custom CSS)
 import getVenues from "../functions/api/getVenue";
 import { FaCar, FaCoffee, FaMapPin, FaPaw, FaWifi } from "react-icons/fa";
+import createBooking from "../functions/api/createBookings";
 
 // Interfaces
 interface Customer {
@@ -119,12 +120,18 @@ const VenuePage = () => {
             setFormattedDates(null);
         }
     };
-
-
+    
     const handleBooking = () => {
-        if (selectedDates[0] && selectedDates[1]) {
+        if (venueId && selectedDates[0] && selectedDates[1]) {
             console.log(formattedDates)
             console.log("Booking details:", {
+                dateFrom: selectedDates[0].toISOString(),
+                dateTo: selectedDates[1].toISOString(),
+                guests,
+            });
+    
+            createBooking({
+                venueId, // Ensure venueId is a string, not undefined
                 dateFrom: selectedDates[0].toISOString(),
                 dateTo: selectedDates[1].toISOString(),
                 guests,
@@ -134,8 +141,6 @@ const VenuePage = () => {
             alert("Please select both check-in and check-out dates.");
         }
     };
-    
-    
 
     return (
         <div className="flex flex-wrap font-inter mt-10">

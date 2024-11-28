@@ -1,6 +1,8 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { handleInputChange } from "../functions/RentOut/handleInputChange";
 import createVenue from "../functions/api/createVenue";
+import { load } from "../functions/localStorage/load";
+import { Link } from "react-router-dom";
 
 interface Venue {
     name: string;
@@ -19,10 +21,11 @@ interface Venue {
     description: string;
     price: number;
     maxGuests: number;
-    media: [{ url: string; alt: string }];  // media is an object with "url" and "alt" properties
+    media: [{ url: string; alt: string }];
 }
 
 const RentOut = () => {
+    const [profile, setProfile] = useState<any>(null);
     const [newVenue, setNewVenue] = useState<Venue>({
         name: "",
         location: {
@@ -40,9 +43,8 @@ const RentOut = () => {
         description: "",
         price: 0,
         maxGuests: 0,
-        media: [{ url: "", alt: "" }],  // Ensure it's an array of Media objects
+        media: [{ url: "", alt: "" }],
     });
-    
     
 
     const onInputChange = handleInputChange(setNewVenue);
@@ -69,9 +71,29 @@ const RentOut = () => {
         }
     };
 
+    useEffect(() => {
+        try {
+          const loadedProfile = load("profile");
+          setProfile(loadedProfile);
+        } catch (error) {
+          console.error(error);
+          setProfile(null);
+        }
+      }, []);
+
+      if (!profile || !profile.venueManager) {
+        return (
+          <div className="mt-10">
+            <h1 className="text-xl font-bold">You dont have access to this page.</h1>
+            <p className="text-xl font-bold mb-5">You need to log in or fix your account settings to rent out your place.</p>
+            <Link to='/login' className="bg-customOrange w-full text-md p-2 px-6 rounded-md">Login</Link>
+          </div>
+        );
+      }
+
   return (
     <div>
-        <div className="container mx-auto flex justify-center items-center text-primary">
+        <div className="container mx-auto flex justify-center items-center text-primary mt-10">
     <div className="flex flex-col shadow-md w-1/2 p-6 space-y-4 rounded-md">
         <h1 className="text-2xl font-bold text-left">Rent out your place</h1>
             <form onSubmit={handleSubmit}>
