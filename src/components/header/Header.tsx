@@ -1,12 +1,20 @@
-import Nav from "./Nav"
-
+import MobileNav from "./mobileNav";
+import Nav from "./Nav";
 
 const Header = () => {
   return (
     <>
+      {/* Desktop Nav (hidden on small screens, visible on large screens) */}
+      <div className="hidden lg:block">
         <Nav />
-    </>
-  )
-}
+      </div>
 
-export default Header
+      {/* Mobile Nav (visible only on small screens, hidden on large screens) */}
+      <div className="lg:hidden">
+        <MobileNav />
+      </div>
+    </>
+  );
+};
+
+export default Header;

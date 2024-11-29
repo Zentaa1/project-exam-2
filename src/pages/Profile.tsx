@@ -112,9 +112,9 @@ const Profile = () => {
             <div className="flex justify-center items-center">
               <h1 className="text-lg font-semibold">{profile.name}</h1>
               <button onClick={openSettings} className="p-2 rounded-full hover:bg-gray-200">
-              ⚙️
+                ⚙️
               </button>
-              <SettingsModal isOpen={isSettingsOpen} onClose={closeSettings} />
+              <SettingsModal profile={profile} isOpen={isSettingsOpen} onClose={closeSettings} />
             </div>
             <p className="text-gray-600 text-center">
               {profile.bio ? profile.bio : "This user has not provided a bio."}
@@ -126,11 +126,11 @@ const Profile = () => {
             </button>
             {isBookingsOpen && bookings.length > 0 && (
               <BookingsModal
-              isOpen={isBookingsOpen} bookingData={bookings} closeModal={closeBookings} />
+                isOpen={isBookingsOpen} bookingData={bookings} closeModal={closeBookings} />
             )}
           </div>
           <div className="w-full px-4">
-            <div className="flex flex-wrap justify-between gap-4 mt-10">
+            <div className="flex flex-wrap justify-center gap-4 mt-10">
               {venues.length > 0 ? (
                 venues.map((venue, index) => (
                   <div key={index} className="flex flex-col w-96 h-full max-w-full shadow-2xl">

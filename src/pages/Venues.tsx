@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import getVenues from "../functions/api/getVenue";
+import { useLocation } from "react-router-dom"; // Hook to read URL parameters
+import searchVenue from "../functions/api/searchVenue"; // For search query
+import getVenues from "../functions/api/getVenue"; // For fetching all venues
 import { FaCar, FaCoffee, FaMapPin, FaPaw, FaWifi } from "react-icons/fa";
 
 interface Location {
@@ -30,14 +32,25 @@ interface Venue {
 }
 
 const Venues = () => {
-  const [venues, setVenues] = useState<Venue[]>([]);
+  const [venues, setVenues] = useState<Venue[]>([]); // Ensure venues is always an array
   const [visibleCount, setVisibleCount] = useState(12); // Number of visible venues
+  const location = useLocation(); // Get current URL
+
+  // Extract query parameter from URL
+  const searchQuery = new URLSearchParams(location.search).get("q") || "";
 
   useEffect(() => {
     const fetchVenues = async () => {
       try {
-        const data: Venue[] = await getVenues();
-        setVenues(data || []); // Ensure venues is always an array
+        if (searchQuery) {
+          // Fetch venues based on the search query
+          const response = await searchVenue(searchQuery);
+          setVenues(Array.isArray(response.data) ? response.data : []); // Ensure it's always an array
+        } else {
+          // Fetch all venues if there's no search query
+          const data: Venue[] = await getVenues();
+          setVenues(Array.isArray(data) ? data : []); // Ensure it's always an array
+        }
       } catch (error) {
         console.error("Error fetching venues.", error);
         setVenues([]); // Fallback to an empty array on error
@@ -45,7 +58,7 @@ const Venues = () => {
     };
 
     fetchVenues();
-  }, []);
+  }, [searchQuery]); // Fetch venues whenever the search query changes
 
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 12);
@@ -57,9 +70,12 @@ const Venues = () => {
     <div className="text-primary font-inter text-left mt-10">
       <h2 className="font-bold text-3xl">Find your next vacation</h2>
       <p>Discover our most popular venues</p>
-      <div className="flex flex-wrap justify-between gap-4 mt-2">
+      <div className="flex flex-wrap justify-center gap-4 mt-2">
         {venues.slice(0, visibleCount).map((venue) => (
-          <div key={venue.id} className="flex flex-col w-96 h-full max-w-full shadow-2xl">
+          <div
+            key={venue.id}
+            className="flex flex-col w-96 h-full max-w-full shadow-2xl"
+          >
             <div className="rounded-t-lg h-36 w-full overflow-hidden">
               <img
                 className="w-full h-full object-cover object-[50%_50%]"
@@ -75,16 +91,32 @@ const Venues = () => {
               </div>
               <p className="truncate">{venue.description}</p>
               <div className="mt-2 grid grid-cols-2 gap-4">
-                <p className={`${venue.meta?.breakfast ? "" : "line-through text-gray-400"} flex items-center`}>
+                <p
+                  className={`${
+                    venue.meta?.breakfast ? "" : "line-through text-gray-400"
+                  } flex items-center`}
+                >
                   <FaCoffee className="mr-2" /> Breakfast
                 </p>
-                <p className={`${venue.meta?.parking ? "" : "line-through text-gray-400"} flex items-center`}>
+                <p
+                  className={`${
+                    venue.meta?.parking ? "" : "line-through text-gray-400"
+                  } flex items-center`}
+                >
                   <FaCar className="mr-2" /> Parking
                 </p>
-                <p className={`${venue.meta?.pets ? "" : "line-through text-gray-400"} flex items-center`}>
+                <p
+                  className={`${
+                    venue.meta?.pets ? "" : "line-through text-gray-400"
+                  } flex items-center`}
+                >
                   <FaPaw className="mr-2" /> Pets
                 </p>
-                <p className={`${venue.meta?.wifi ? "" : "line-through text-gray-400"} flex items-center`}>
+                <p
+                  className={`${
+                    venue.meta?.wifi ? "" : "line-through text-gray-400"
+                  } flex items-center`}
+                >
                   <FaWifi className="mr-2" /> WiFi
                 </p>
               </div>

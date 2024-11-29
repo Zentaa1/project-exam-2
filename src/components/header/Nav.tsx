@@ -3,9 +3,11 @@ import staynest from "../../assets/Staynest.png";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import getProfile from "../../functions/api/getProfile";
 import { useEffect, useState } from "react";
+import LogoutModal from "./LogoutModal";  // Import the modal component
 
 const Nav = () => {
   const [profileObj, setProfileObj] = useState<{ name: string } | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,10 +17,9 @@ const Nav = () => {
       const parsedProfile = JSON.parse(profile);
       setProfileObj(parsedProfile);
 
-      getProfile(parsedProfile.name)
-        .catch((error) => {
-          console.error("Error fetching profile data:", error);
-        });
+      getProfile(parsedProfile.name).catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
     }
   }, []);
 
@@ -26,6 +27,19 @@ const Nav = () => {
     localStorage.removeItem("profile");
     setProfileObj(null);
     navigate("/");
+  };
+
+  const handleLogoutClick = () => {
+    setIsModalOpen(true); // Open the modal when logout button is clicked
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
+  };
+
+  const confirmLogout = () => {
+    handleLogout();
+    closeModal(); // Close the modal after confirming logout
   };
 
   return (
@@ -50,14 +64,11 @@ const Nav = () => {
                 </>
               ) : (
                 <>
-                  <Link
-                    to={`/profile/${profileObj.name}`}
-                    className="flex items-center space-x-2"
-                  >
+                  <Link to={`/profile/${profileObj.name}`} className="flex items-center space-x-2">
                     <FaUserCircle /> <span>Profile</span>
                   </Link>
                   <button
-                    onClick={handleLogout}
+                    onClick={handleLogoutClick}
                     className="flex items-center space-x-2"
                   >
                     <FaSignOutAlt /> <span>Logout</span>
@@ -68,6 +79,11 @@ const Nav = () => {
           </nav>
         </div>
       </header>
+      <LogoutModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmLogout}
+      />
     </div>
   );
 };
