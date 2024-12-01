@@ -37,14 +37,14 @@ interface Venue {
 const Venues = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [visibleCount, setVisibleCount] = useState(12);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   const searchQuery = new URLSearchParams(location.search).get("q") || "";
 
   useEffect(() => {
     const fetchVenues = async () => {
-      setLoading(true); // Start loading
+      setLoading(true);
       try {
         if (searchQuery) {
           const response = await searchVenue(searchQuery);
@@ -57,7 +57,7 @@ const Venues = () => {
         console.error("Error fetching venues.", error);
         setVenues([]);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
 
