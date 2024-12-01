@@ -33,18 +33,26 @@ Before you begin, ensure you have the following software installed on your machi
    ```bash
    git clone https://github.com/your-username/staynest.git
    cd staynest
+   ```
 
 2. **Install the required dependencies**
+  ```bash
   npm install
+  ```
   Or if you're using yarn:
+  ```bash
   yarn install
 
 3. **Environment variables**
   Create a .env file in the root directory and add the following variable:
+  ```bash
   VITE_API_KEY=<your_api_key>
 
 4. **Running the Project**
   To start the development server, run:
+  ```bash
   npm run dev
+  ```
   Or, if using yarn:
+  ```bash
   yarn dev
