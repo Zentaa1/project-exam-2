@@ -3,11 +3,11 @@ import staynest from "../../assets/Staynest.png";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import getProfile from "../../functions/api/getProfile";
 import { useEffect, useState } from "react";
-import LogoutModal from "./LogoutModal";  // Import the modal component
+import LogoutModal from "./LogoutModal"; 
 
 const Nav = () => {
   const [profileObj, setProfileObj] = useState<{ name: string } | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,16 +30,16 @@ const Nav = () => {
   };
 
   const handleLogoutClick = () => {
-    setIsModalOpen(true); // Open the modal when logout button is clicked
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
   };
 
   const confirmLogout = () => {
     handleLogout();
-    closeModal(); // Close the modal after confirming logout
+    closeModal();
   };
 
   return (

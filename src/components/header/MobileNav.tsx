@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from "react";
 
 const MobileNav = () => {
   const [profileObj, setProfileObj] = useState<{ name: string } | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // To toggle the menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const menuRef = useRef<HTMLDivElement | null>(null); // To track the menu for outside click
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const profile = localStorage.getItem("profile");
@@ -56,13 +56,12 @@ const MobileNav = () => {
           </div>
           <div className="lg:hidden">
           <button
-  onClick={() => setIsMenuOpen(!isMenuOpen)}
-  className="text-2xl focus:outline-none bg-transparent p-2"
-  aria-label="Toggle menu"
->
-  <FaBars size={30} className="text-black" />
-</button>
-
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-2xl focus:outline-none bg-transparent p-2"
+              aria-label="Toggle menu"
+            >
+              <FaBars size={30} className="text-black" />
+          </button>
           </div>
         </div>
         {isMenuOpen && (
