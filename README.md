@@ -1,4 +1,5 @@
 # StayNest - Vacation Venue Booking Platform
+## Marius Kjesbu Bjeglerud - Project Exam 2
 
 StayNest is a platform for discovering, booking, and managing vacation venues. Users can explore popular venues, view detailed information, and make bookings. Additionally, they can manage their profile settings and view upcoming bookings.
 
