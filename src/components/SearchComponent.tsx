@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const SearchComponent = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -12,7 +12,7 @@ const SearchComponent = () => {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/venues?q=${searchQuery.trim()}`); // Update URL with query
+      navigate(`/venues?q=${searchQuery.trim()}`);
     }
   };
 

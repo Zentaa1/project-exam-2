@@ -26,6 +26,17 @@ export default {
         lg: "1024px",
         xl: "1280px",
       },
+      container: {
+        center: true,
+        padding: '2rem',
+        screens: {
+          xs: '100%',
+          sm: '100%',
+          md: '100%',
+          lg: '100%',
+          xl: '1280px',
+        },
+      },
     },
   },
   plugins: [],

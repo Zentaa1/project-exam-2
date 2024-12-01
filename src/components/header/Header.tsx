@@ -1,4 +1,4 @@
-import MobileNav from "./mobileNav";
+import MobileNav from "./MobileNav";
 import Nav from "./Nav";
 
 const Header = () => {

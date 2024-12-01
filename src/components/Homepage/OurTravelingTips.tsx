@@ -7,7 +7,6 @@ const OurTravelingTips = () => {
     <div className="text-primary font-inter">
       <h2 className="text-left text-3xl font-bold mt-10">Our Traveling Tips</h2>
       <div className="flex flex-wrap lg:flex-nowrap justify-between gap-4 h-auto lg:h-96 mt-6">
-        {/* First Tip */}
         <div className="w-full lg:w-1/2 rounded-lg shadow-2xl text-left my-2">
           <div className="h-4/6 rounded-t-lg overflow-hidden">
             <img
@@ -21,10 +20,7 @@ const OurTravelingTips = () => {
             <p className="text-xl mt-4">Read more about our canceling policy</p>
           </div>
         </div>
-
-        {/* Second Tip Section (2 Columns on large screens) */}
         <div className="w-full lg:w-1/2 flex flex-col justify-between text-left">
-          {/* Best Rated Venues */}
           <div className="flex flex-col lg:flex-row h-full my-2 shadow-2xl rounded-lg">
             <div className="w-full lg:w-44 h-full rounded-t-lg lg:rounded-l-lg overflow-hidden">
               <img className="w-full h-full object-cover" src={beach} alt="Beach" />
@@ -35,8 +31,6 @@ const OurTravelingTips = () => {
               <p className="mt-4 text-lg">Book your dream vacation today!</p>
             </div>
           </div>
-
-          {/* City Vacation */}
           <div className="flex flex-col lg:flex-row h-full my-2 shadow-2xl rounded-lg">
             <div className="w-full lg:w-44 h-full rounded-t-lg lg:rounded-l-lg overflow-hidden">
               <img className="w-full h-full object-cover" src={city} alt="City" />

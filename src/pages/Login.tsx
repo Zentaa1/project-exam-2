@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import login from "../functions/auth/login";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,8 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const loginData = { email, password };
-      const result = await login(loginData);
-      console.log(result);
+      await login(loginData);
 
       navigate("/");
     } catch (error: unknown) {
@@ -27,6 +27,11 @@ const Login = () => {
 
   return (
     <div className="container mx-auto flex justify-center items-center text-primary py-10">
+      <Helmet>
+      <title>Login - StayNest</title>
+        <meta name="description" content="Log in to your account on Staynest to access personalized features and manage your settings." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="flex flex-col shadow-md w-full sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 space-y-4 rounded-md">
         <h1 className="text-2xl font-bold text-left">Login</h1>
         <form onSubmit={handleSubmit}>

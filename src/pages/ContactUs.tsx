@@ -1,6 +1,12 @@
+import { Helmet } from "react-helmet";
+
 const ContactUs = () => {
   return (
     <div className="container mx-auto flex justify-center items-center text-primary py-10">
+      <Helmet>
+        <title>Contact Us - StayNest</title>
+        <meta name="description" content="Come in touch with us at staynest!"/>
+      </Helmet>
       <div className="flex flex-col shadow-md w-full sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 space-y-4 rounded-md">
         <h1 className="text-2xl font-bold text-left">Contact Us</h1>
         <form>

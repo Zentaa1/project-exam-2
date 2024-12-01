@@ -27,8 +27,6 @@ export default async function createBooking({
             }
         );
 
-        console.log(response);
-
         return response.data;
     } catch (error) {
         console.error("Error creating booking", error);

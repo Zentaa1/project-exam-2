@@ -3,13 +3,11 @@ import { handleInputChange } from "../functions/RentOut/handleInputChange";
 import createVenue from "../functions/api/createVenue";
 import { load } from "../functions/localStorage/load";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
-// Define the Profile type to avoid 'any' error
 interface Profile {
     venueManager: boolean;
-    // Add any other properties you expect in the profile
 }
-
 interface Venue {
     name: string;
     location: {
@@ -88,6 +86,10 @@ const RentOut = () => {
     if (!profile || !profile.venueManager) {
         return (
             <div className="mt-10">
+                <Helmet>
+                    <title>Rent Out Your Venue - StayNest</title>
+                    <meta name="description" content="List your venue on StayNest and start earning by renting it out to customers." />
+                </Helmet>
                 <h1 className="text-xl font-bold">You don't have access to this page.</h1>
                 <p className="text-xl font-bold mb-5">
                     You need to log in or fix your account settings to rent out your place.
@@ -101,10 +103,13 @@ const RentOut = () => {
 
     return (
         <div className="container mx-auto flex justify-center items-center text-primary py-10">
+             <Helmet>
+                <title>Rent Out Your Venue - StayNest</title>
+                <meta name="description" content="List your venue on StayNest and start earning by renting it out to customers." />
+            </Helmet>
             <div className="flex flex-col shadow-md w-full sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 space-y-4 rounded-md">
                 <h1 className="text-2xl font-bold text-left">Rent out your place</h1>
                 <form onSubmit={handleSubmit}>
-                    {/* Name */}
                     <div className="flex flex-col text-left">
                         <label className="text-xl font-medium">Name:</label>
                         <input
@@ -112,12 +117,10 @@ const RentOut = () => {
                             name="name"
                             value={newVenue.name}
                             onChange={onInputChange}
-                            placeholder="Marius Bjeglerud"
+                            placeholder="Best Hotel"
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Address */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Address:</label>
                         <input
@@ -129,8 +132,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* City */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">City:</label>
                         <input
@@ -142,8 +143,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Region */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Region:</label>
                         <input
@@ -155,8 +154,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Country */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Country:</label>
                         <input
@@ -168,8 +165,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Description */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Description:</label>
                         <input
@@ -181,8 +176,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Price */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Price:</label>
                         <input
@@ -194,8 +187,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Max Guests */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Max Guests:</label>
                         <input
@@ -207,8 +198,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Features */}
                     <div className="flex flex-col space-y-3 mt-3">
                         <div className="flex items-center">
                             <input
@@ -220,7 +209,6 @@ const RentOut = () => {
                             />
                             <label className="text-xl font-medium ml-2">Wifi</label>
                         </div>
-
                         <div className="flex items-center">
                             <input
                                 type="checkbox"
@@ -231,7 +219,6 @@ const RentOut = () => {
                             />
                             <label className="text-xl font-medium ml-2">Pets allowed</label>
                         </div>
-
                         <div className="flex items-center">
                             <input
                                 type="checkbox"
@@ -242,7 +229,6 @@ const RentOut = () => {
                             />
                             <label className="text-xl font-medium ml-2">Parking</label>
                         </div>
-
                         <div className="flex items-center">
                             <input
                                 type="checkbox"
@@ -254,8 +240,6 @@ const RentOut = () => {
                             <label className="text-xl font-medium ml-2">Breakfast</label>
                         </div>
                     </div>
-
-                    {/* Image URL */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Image URL:</label>
                         <input
@@ -267,8 +251,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Image Text */}
                     <div className="flex flex-col text-left mt-3">
                         <label className="text-xl font-medium">Image Text:</label>
                         <input
@@ -280,8 +262,6 @@ const RentOut = () => {
                             className="text-xl bg-inputBg p-2 rounded-md"
                         />
                     </div>
-
-                    {/* Submit Button */}
                     <button
                         type="submit"
                         className="bg-customOrange w-full mt-5 font-bold text-xl p-2 rounded-md"

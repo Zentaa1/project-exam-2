@@ -8,15 +8,13 @@ export default async function getVenues(id?: string, includeOwner = true, includ
             url = `${url}/${id}?_owner=${includeOwner}&_bookings=${includeBookings}`;
         }
 
-        console.log("Fetching URL:", url); // Debug log
+        console.log("Fetching URL:", url);
 
         const response = await axios.get(url, {
             headers: {
                 "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
             },
         });
-
-        console.log("API Response:", response.data);
 
         return response.data.data;
     } catch (error) {

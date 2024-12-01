@@ -43,11 +43,9 @@ export default async function createVenue({
             }
         );
 
-        console.log(response);  // For debugging, check the full response
-
-        return response.data;  // Return the data from the response
+        return response.data;
     } catch (error) {
-        console.error("Error publishing venue", error);  // Log the error if the request fails
+        console.error("Error publishing venue", error);
         throw new Error("Failed to publish venue");
     }
 }

@@ -24,17 +24,12 @@ const MobileNav = () => {
   }, []);
 
   useEffect(() => {
-    // Close the menu when clicking outside
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
     };
-
-    // Adding event listener on mount
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Clean up event listener on unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -46,7 +41,6 @@ const MobileNav = () => {
     navigate("/");
   };
 
-  // Close the menu when a link is clicked
   const handleLinkClick = () => {
     setIsMenuOpen(false);
   };
@@ -55,33 +49,29 @@ const MobileNav = () => {
     <div className="w-full shadow-md">
       <header>
         <div className="container mx-auto flex justify-between items-center py-4">
-          {/* Logo Section */}
           <div className="flex items-center">
             <Link to="/">
               <img src={staynest} alt="StayNest logo" className="h-8 w-auto" />
             </Link>
           </div>
-
-          {/* Hamburger Icon for Mobile */}
           <div className="lg:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-2xl focus:outline-none"
-            >
-              <FaBars />
-            </button>
+          <button
+  onClick={() => setIsMenuOpen(!isMenuOpen)}
+  className="text-2xl focus:outline-none bg-transparent p-2"
+  aria-label="Toggle menu"
+>
+  <FaBars size={30} className="text-black" />
+</button>
+
           </div>
         </div>
-
-        {/* Mobile Nav Menu (Toggle Visibility) */}
         {isMenuOpen && (
           <>
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-10"></div> {/* Backdrop */}
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-10"></div>
             <div
-              ref={menuRef} // Attach the ref to the menu container
+              ref={menuRef}
               className="fixed right-0 top-0 w-4/5 sm:w-2/3 md:w-1/2 h-full bg-white py-4 px-6 z-20 shadow-xl transition-all ease-in-out duration-300 transform"
             >
-              {/* Close Button (X) */}
               <div className="flex justify-end">
                 <button
                   onClick={() => setIsMenuOpen(false)}
@@ -95,7 +85,7 @@ const MobileNav = () => {
                 <li>
                   <Link
                     to="/rentout"
-                    onClick={handleLinkClick} // Close menu when clicked
+                    onClick={handleLinkClick}
                     className="block py-2 hover:text-primary"
                   >
                     Rent out your place
@@ -104,7 +94,7 @@ const MobileNav = () => {
                 <li>
                   <Link
                     to="/contact"
-                    onClick={handleLinkClick} // Close menu when clicked
+                    onClick={handleLinkClick}
                     className="block py-2 hover:text-primary"
                   >
                     Contact Us
@@ -113,7 +103,7 @@ const MobileNav = () => {
                 <li>
                   <Link
                     to="/about"
-                    onClick={handleLinkClick} // Close menu when clicked
+                    onClick={handleLinkClick}
                     className="block py-2 hover:text-primary"
                   >
                     About Us
@@ -125,7 +115,7 @@ const MobileNav = () => {
                     <li>
                       <Link
                         to="/register"
-                        onClick={handleLinkClick} // Close menu when clicked
+                        onClick={handleLinkClick}
                         className="block py-2 hover:text-primary"
                       >
                         Register
@@ -134,7 +124,7 @@ const MobileNav = () => {
                     <li>
                       <Link
                         to="/login"
-                        onClick={handleLinkClick} // Close menu when clicked
+                        onClick={handleLinkClick}
                         className="block py-2 hover:text-primary"
                       >
                         Login
@@ -146,7 +136,7 @@ const MobileNav = () => {
                     <li>
                       <Link
                         to={`/profile/${profileObj.name}`}
-                        onClick={handleLinkClick} // Close menu when clicked
+                        onClick={handleLinkClick}
                         className="py-2 flex items-center space-x-2 hover:text-primary"
                       >
                         <FaUserCircle /> <span>Profile</span>
@@ -156,7 +146,7 @@ const MobileNav = () => {
                       <button
                         onClick={() => {
                           handleLogout();
-                          handleLinkClick(); // Close menu after logout
+                          handleLinkClick();
                         }}
                         className="py-2 flex items-center space-x-2 hover:text-primary"
                       >
@@ -170,7 +160,7 @@ const MobileNav = () => {
           </>
         )}
       </header>
-    </div>
+    </div> 
   );
 };
 

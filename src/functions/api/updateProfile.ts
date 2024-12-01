@@ -33,8 +33,6 @@ interface updateProfileOptions {
 
             );
 
-            console.log(response);
-
             return response;
         } catch (error) {
             console.error("Error updating profile", error);

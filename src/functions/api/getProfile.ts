@@ -11,7 +11,7 @@ export default async function getProfile(id?: string) {
                     "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
                 },
             }),
-            axios.get(`${API_BASE}${API_HOLIDAZE}/profiles/${id}/bookings`, {
+            axios.get(`${API_BASE}${API_HOLIDAZE}/profiles/${id}/bookings?_venue=true`, {
                 headers: {
                     Authorization: `Bearer ${load("token")}`,
                     "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,

@@ -28,8 +28,6 @@ export default async function login({
     save("token", accessToken);
     save("profile", profile);
 
-    console.log("Access token:", accessToken)
-
     return response.data;
 
   } catch (error) {

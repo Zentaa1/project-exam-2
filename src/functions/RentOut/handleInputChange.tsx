@@ -30,8 +30,6 @@ export function handleInputChange<T extends Venue>(
 ) {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
-
-        // Handle boolean fields like checkboxes
         if (type === "checkbox") {
             setState((prev: T) => ({
                 ...prev,
@@ -41,22 +39,20 @@ export function handleInputChange<T extends Venue>(
                 },
             }));
         } else if (name.startsWith("media.")) {
-            // Handle media fields
-            const field = name.split(".")[1];  // Extract 'url' or 'alt'
+            const field = name.split(".")[1];
             setState((prev: T) => ({
                 ...prev,
                 media: prev.media.map((item, index) => {
                     if (index === 0) {
                         return {
                             ...item,
-                            [field]: value,  // Update the correct field (url or alt)
+                            [field]: value,
                         };
                     }
                     return item;
                 }),
             }));
         } else if (name.startsWith("location.")) {
-            // Handle location fields
             const field = name.split(".")[1];
             setState((prev: T) => ({
                 ...prev,
@@ -66,10 +62,8 @@ export function handleInputChange<T extends Venue>(
                 },
             }));
         } else {
-            // Handle number fields (price, maxGuests)
             if (name === "price" || name === "maxGuests") {
                 const numericValue = parseFloat(value);
-                // Only update if the value is a valid number
                 if (!isNaN(numericValue)) {
                     setState((prev: T) => ({
                         ...prev,
@@ -77,7 +71,6 @@ export function handleInputChange<T extends Venue>(
                     }));
                 }
             } else {
-                // Handle other fields (e.g., name, description, etc.)
                 setState((prev: T) => ({
                     ...prev,
                     [name]: value,

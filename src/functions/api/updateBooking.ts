@@ -27,8 +27,6 @@ export default async function updateBooking(
             }
         );
 
-        console.log(response);
-
         return response;
     } catch (error) {
         console.error("Error updating booking", error);

@@ -5,7 +5,7 @@ import { load } from "../localStorage/load";
 export default async function getBookings() {
     try {
         const response = await axios.get(
-            `${API_BASE}${API_HOLIDAZE}${API_BOOKING}`,
+            `${API_BASE}${API_HOLIDAZE}${API_BOOKING}?_customer=true`,
             {
                 headers: {
                     Authorization: `Bearer ${load("token")}`,
@@ -13,8 +13,6 @@ export default async function getBookings() {
                 },
             }
         );
-
-        console.log(response);
 
         return response.data;
     } catch (error) {

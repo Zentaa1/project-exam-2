@@ -1,8 +1,13 @@
+import { Helmet } from "react-helmet"
 import { Link } from "react-router-dom"
 
 const AboutUs = () => {
   return (
     <div className="container mx-auto px-4 py-8 text-primary">
+        <Helmet>
+            <title>About Us - StayNest</title>
+            <meta name="description" content="About us at staynest"/>
+        </Helmet>
     <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">About Stayest</h1>
         <p className="text-lg mb-6 text-gray-700">

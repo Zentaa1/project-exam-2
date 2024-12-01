@@ -4,6 +4,8 @@ import getProfile from "../functions/api/getProfile";
 import SettingsModal from "../components/profilepage/SettingsModal";
 import BookingsModal from "../components/profilepage/BookingsModal";
 import { FaCar, FaCoffee, FaMapPin, FaPaw, FaWifi } from "react-icons/fa";
+import { Helmet } from "react-helmet";
+import Spinner from "../components/Spinner";
 
 interface Avatar {
   url: string;
@@ -17,11 +19,16 @@ interface Profile {
   avatar: Avatar;
 }
 
+interface BookingVenue {
+  name: string;
+}
+
 interface Booking {
   id: string;
   dateFrom: string;
   dateTo: string;
   guests: number;
+  venue: BookingVenue;
 }
 
 interface Location {
@@ -55,6 +62,7 @@ const Profile = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isBookingsOpen, setIsBookingsOpen] = useState(false);
 
@@ -62,18 +70,19 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      setLoading(true);
       try {
         const data = await getProfile(username);
         setProfile(data.profile);
-        setBookings(data.bookings || []); 
+        setBookings(data.bookings || []);
         setVenues(data.venues);
-        console.log("Profile data:", data.profile);
-        console.log("Bookings data:", data.bookings);
-        console.log("Venues data:", data.venues);
       } catch (error) {
         console.error("Error fetching profile data", error);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchProfile();
   }, [username]);
 
@@ -83,7 +92,7 @@ const Profile = () => {
 
   const closeSettings = () => {
     setIsSettingsOpen(false);
-  }
+  };
 
   const openBookings = () => {
     setIsBookingsOpen(true);
@@ -92,16 +101,28 @@ const Profile = () => {
   const closeBookings = () => {
     setIsBookingsOpen(false);
   };
-  
+
   const generateVenuePageLink = (venue: Venue) => `/venues/${venue.id}`;
 
   if (!username) {
     return <div>Profile not found</div>;
   }
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <div className="mt-10">
-      {profile ? (
+      <Helmet>
+        <title>{username ? `${username}'s Profile - StayNest` : "Profile - StayNest"}</title>
+        <meta name="description" content={`View ${username}'s profile on StayNest. Explore their details and activity.`} />
+      </Helmet>
+      {profile && (
         <div>
           <div className="flex flex-col items-center">
             <img
@@ -126,7 +147,10 @@ const Profile = () => {
             </button>
             {isBookingsOpen && bookings.length > 0 && (
               <BookingsModal
-                isOpen={isBookingsOpen} bookingData={bookings} closeModal={closeBookings} />
+                isOpen={isBookingsOpen}
+                bookingData={bookings}
+                closeModal={closeBookings}
+              />
             )}
           </div>
           <div className="w-full px-4">
@@ -180,13 +204,11 @@ const Profile = () => {
                   </div>
                 ))
               ) : (
-                <p>Loading venues...</p>
+                <p>No venues found.</p>
               )}
             </div>
           </div>
         </div>
-      ) : (
-        <div>Loading...</div>
       )}
     </div>
   );

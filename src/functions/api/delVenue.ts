@@ -1,11 +1,11 @@
 import axios from "axios";
-import { API_BASE, API_BOOKING, API_HOLIDAZE } from "../auth/constants";
+import { API_BASE, API_HOLIDAZE, API_VENUES } from "../auth/constants";
 import { load } from "../localStorage/load";
 
-export default async function deleteBookings(id?: string) {
+export default async function delVenue(id: string) {
     try {
-        const response = await axios.delete(
-            `${API_BASE}${API_HOLIDAZE}${API_BOOKING}/${id}`,
+        const response = axios.delete(
+            `${API_BASE}${API_HOLIDAZE}${API_VENUES}/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${load("token")}`,
@@ -16,7 +16,7 @@ export default async function deleteBookings(id?: string) {
 
         return response;
     } catch (error) {
-        console.error("Error deleting booking", error);
-        throw new Error("Failed to delete booking");
+        console.error("Error deleting venue", error);
+        throw new Error("Failed to delete venue");
     }
 }

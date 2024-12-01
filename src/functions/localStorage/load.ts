@@ -1,8 +1,9 @@
-export function load(key: string) {
-    const value = localStorage.getItem(key);
-    if (value !== null) {
-        return JSON.parse(value);
-    } else {
-        throw new Error(`No value found for key: ${key}`);
+export const load = (key: string) => {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : null;
+    } catch (error) {
+        console.error(`Error loading key "${key}" from localStorage:`, error);
+        return null;
     }
-}
+};

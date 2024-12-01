@@ -12,8 +12,6 @@ export default async function searchVenue(searchQuery: string) {
             }
         );
 
-        console.log(response.data.data);
-
         return response.data;
     } catch (error) {
         console.error("Error fetching venues", error);
