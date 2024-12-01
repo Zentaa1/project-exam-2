@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# StayNest - Vacation Venue Booking Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+StayNest is a platform for discovering, booking, and managing vacation venues. Users can explore popular venues, view detailed information, and make bookings. Additionally, they can manage their profile settings and view upcoming bookings.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Popular Venues**: View top-rated venues with essential information like location, price, and amenities.
+- **Venue Booking**: Users can create, update, or delete bookings with specific dates and guest counts.
+- **User Profile Management**: Update your bio, avatar, and venue manager status.
+- **Authentication**: Secure login and token-based session management.
+- **Responsive UI**: A clean and intuitive user interface designed for both mobile and desktop devices.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: Frontend UI framework.
+- **TypeScript**: For type safety and better development experience.
+- **Axios**: For making HTTP requests to the backend API.
+- **Tailwind CSS**: For utility-first CSS styling.
+- **React Router**: For handling routing and navigation in the app.
 
-- Configure the top-level `parserOptions` property like this:
+## Setup
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Prerequisites
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Before you begin, ensure you have the following software installed on your machine:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Node.js (v14 or higher)
+- npm or yarn
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/staynest.git
+   cd staynest
+
+2. **Install the required dependencies**
+  npm install
+  Or if you're using yarn:
+  yarn install
+
+3. **Environment variables**
+  Create a .env file in the root directory and add the following variable:
+  VITE_API_KEY=<your_api_key>
+
+4. **Running the Project**
+  To start the development server, run:
+  npm run dev
+  Or, if using yarn:
+  yarn dev
