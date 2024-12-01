@@ -42,11 +42,13 @@ Before you begin, ensure you have the following software installed on your machi
   Or if you're using yarn:
   ```bash
   yarn install
+  ```
 
 3. **Environment variables**
   Create a .env file in the root directory and add the following variable:
   ```bash
   VITE_API_KEY=<your_api_key>
+  ```
 
 4. **Running the Project**
   To start the development server, run:
@@ -56,3 +58,4 @@ Before you begin, ensure you have the following software installed on your machi
   Or, if using yarn:
   ```bash
   yarn dev
+  ```
