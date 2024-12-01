@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { handleInputChange } from "../functions/RentOut/handleInputChange";
 import createVenue from "../functions/api/createVenue";
 import { load } from "../functions/localStorage/load";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 interface Profile {
@@ -49,6 +49,9 @@ const RentOut = () => {
         maxGuests: 0,
         media: [{ url: "", alt: "" }],
     });
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    const navigate = useNavigate();
 
     const onInputChange = handleInputChange(setNewVenue);
 
@@ -62,8 +65,8 @@ const RentOut = () => {
         };
 
         try {
-            console.log(venueData);
             await createVenue(venueData);
+            setIsSuccess(true);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message);
@@ -83,12 +86,20 @@ const RentOut = () => {
         }
     }, []);
 
+    const closeModal = () => {
+        setIsSuccess(false);
+        navigate("/");
+    };
+
     if (!profile || !profile.venueManager) {
         return (
             <div className="mt-10">
                 <Helmet>
                     <title>Rent Out Your Venue - StayNest</title>
-                    <meta name="description" content="List your venue on StayNest and start earning by renting it out to customers." />
+                    <meta
+                        name="description"
+                        content="List your venue on StayNest and start earning by renting it out to customers."
+                    />
                 </Helmet>
                 <h1 className="text-xl font-bold">You don't have access to this page.</h1>
                 <p className="text-xl font-bold mb-5">
@@ -103,9 +114,12 @@ const RentOut = () => {
 
     return (
         <div className="container mx-auto flex justify-center items-center text-primary py-10">
-             <Helmet>
+            <Helmet>
                 <title>Rent Out Your Venue - StayNest</title>
-                <meta name="description" content="List your venue on StayNest and start earning by renting it out to customers." />
+                <meta
+                    name="description"
+                    content="List your venue on StayNest and start earning by renting it out to customers."
+                />
             </Helmet>
             <div className="flex flex-col shadow-md w-full sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 space-y-4 rounded-md">
                 <h1 className="text-2xl font-bold text-left">Rent out your place</h1>
@@ -270,6 +284,22 @@ const RentOut = () => {
                     </button>
                 </form>
             </div>
+            {isSuccess && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded-md w-3/4 sm:w-1/2 md:w-1/3">
+                        <h2 className="text-2xl font-bold text-green-500">Success!</h2>
+                        <p className="mt-2 text-xl">Your venue has been successfully created!</p>
+                        <div className="mt-4 flex justify-end">
+                            <button
+                                onClick={closeModal}
+                                className="bg-customOrange text-white p-2 rounded-md"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

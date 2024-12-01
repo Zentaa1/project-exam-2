@@ -34,6 +34,7 @@ const VenuePage = () => {
     const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
     const [selectedDates, setSelectedDates] = useState<[Date | null, Date | null]>([null, null]);
     const [guests, setGuests] = useState(1);
+    const [bookingConfirmed, setBookingConfirmed] = useState(false); // State to track booking confirmation
     const ownProfile = load("profile") || undefined;
 
     useEffect(() => {
@@ -71,19 +72,29 @@ const VenuePage = () => {
             ? "booked-date"
             : null;
 
-    const handleBooking = () => {
+    const handleBooking = async () => {
         if (!venueId || !selectedDates[0] || !selectedDates[1]) {
             alert("Please select check-in and check-out dates.");
             return;
         }
 
-        createBooking({
-            venueId,
-            dateFrom: selectedDates[0].toISOString(),
-            dateTo: selectedDates[1].toISOString(),
-            guests,
-        });
-        setIsBookingModalOpen(false);
+        try {
+            await createBooking({
+                venueId,
+                dateFrom: selectedDates[0].toISOString(),
+                dateTo: selectedDates[1].toISOString(),
+                guests,
+            });
+            setBookingConfirmed(true); // Set booking as confirmed
+            setIsBookingModalOpen(false); // Close booking modal
+        } catch (error) {
+            console.error("Error creating booking:", error);
+            alert("An error occurred while creating the booking. Please try again.");
+        }
+    };
+
+    const closeConfirmation = () => {
+        setBookingConfirmed(false);
     };
 
     return (
@@ -148,6 +159,23 @@ const VenuePage = () => {
                     </button>
                 )}
             </div>
+
+            {/* Booking Confirmation Modal */}
+            {bookingConfirmed && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-6 w-96 shadow-lg text-center">
+                        <h2 className="text-xl font-bold mb-4">Booking Confirmed!</h2>
+                        <p>Your booking has been successfully created.</p>
+                        <button
+                            onClick={closeConfirmation}
+                            className="bg-customOrange p-2 rounded-lg font-medium mt-6"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {isBookingModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
@@ -158,7 +186,7 @@ const VenuePage = () => {
                             tileClassName={tileClassName}
                             className="react-calendar"
                         />
-                            <div className="mt-4">
+                        <div className="mt-4">
                             <label className="block font-medium">Number of Guests</label>
                             <select
                                 value={guests}
@@ -166,12 +194,12 @@ const VenuePage = () => {
                                 className="border p-2 rounded w-full"
                             >
                                 {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-                                <option key={num} value={num}>
-                                    {num}
-                                </option>
+                                    <option key={num} value={num}>
+                                        {num}
+                                    </option>
                                 ))}
                             </select>
-                            </div>
+                        </div>
                         <div className="mt-6 flex justify-between">
                             <button
                                 onClick={() => setIsBookingModalOpen(false)}
@@ -189,6 +217,7 @@ const VenuePage = () => {
                     </div>
                 </div>
             )}
+
             <EditModal
                 venue={venue}
                 isOpen={isEditModalOpen}

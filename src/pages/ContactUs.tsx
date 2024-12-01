@@ -23,7 +23,7 @@ const ContactUs = () => {
             <label className="text-xl font-medium">Phone Number:</label>
             <input
               type="text"
-              placeholder="E-mail"
+              placeholder="+12 123 45 678"
               className="text-xl bg-inputBg p-2 rounded-md"
             />
           </div>

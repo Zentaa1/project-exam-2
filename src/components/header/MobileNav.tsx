@@ -3,10 +3,12 @@ import staynest from "../../assets/Staynest.png";
 import { FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import getProfile from "../../functions/api/getProfile";
 import { useEffect, useRef, useState } from "react";
+import LogoutModal from "./LogoutModal";
 
 const MobileNav = () => {
   const [profileObj, setProfileObj] = useState<{ name: string } | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,6 +43,19 @@ const MobileNav = () => {
     navigate("/");
   };
 
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const confirmLogout = () => {
+    handleLogout();
+    closeModal();
+  };
+
   const handleLinkClick = () => {
     setIsMenuOpen(false);
   };
@@ -55,13 +70,13 @@ const MobileNav = () => {
             </Link>
           </div>
           <div className="lg:hidden">
-          <button
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-2xl focus:outline-none bg-transparent p-2"
               aria-label="Toggle menu"
             >
               <FaBars size={30} className="text-black" />
-          </button>
+            </button>
           </div>
         </div>
         {isMenuOpen && (
@@ -143,10 +158,7 @@ const MobileNav = () => {
                     </li>
                     <li>
                       <button
-                        onClick={() => {
-                          handleLogout();
-                          handleLinkClick();
-                        }}
+                        onClick={handleLogoutClick}
                         className="py-2 flex items-center space-x-2 hover:text-primary"
                       >
                         <FaSignOutAlt /> <span>Logout</span>
@@ -159,7 +171,12 @@ const MobileNav = () => {
           </>
         )}
       </header>
-    </div> 
+      <LogoutModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmLogout}
+      />
+    </div>
   );
 };
 

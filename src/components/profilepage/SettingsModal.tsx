@@ -14,11 +14,35 @@ interface Profile {
 }
 
 interface SettingsModalProps {
+  /**
+   * Determines if the modal is open or closed.
+   * @type {boolean}
+   */
   isOpen: boolean;
+
+  /**
+   * Function to close the modal.
+   * @returns {void}
+   */
   onClose: () => void;
+
+  /**
+   * Profile data of the user.
+   * @type {Profile | null}
+   */
   profile: Profile | null;
 }
 
+/**
+ * A modal component for editing user account settings.
+ * 
+ * This component allows users to update their bio, avatar URL, and venue manager status.
+ * It provides a modal interface for making changes, and once changes are saved, it updates
+ * the profile by calling the `updateProfile` function.
+ * 
+ * @param {SettingsModalProps} props - The settings modal props.
+ * @returns {JSX.Element} The modal UI to update account settings.
+ */
 const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, profile }) => {
   const [settings, setSettings] = useState<Profile>({
     bio: "",
@@ -28,6 +52,14 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, profile 
 
   const { username } = useParams();
 
+  /**
+   * Sets the settings state when the profile prop changes.
+   * 
+   * This effect ensures that when the profile is provided or updated, the modal will
+   * display the current settings data.
+   * 
+   * @returns {void}
+   */
   useEffect(() => {
     if (profile) {
       setSettings(profile);
@@ -119,7 +151,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, profile 
           >
             Save Changes
           </button>
-
         </div>
       </div>
     </div>

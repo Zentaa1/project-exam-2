@@ -16,6 +16,7 @@ const Login = () => {
       await login(loginData);
 
       navigate("/");
+      window.location.reload();
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -63,7 +64,7 @@ const Login = () => {
           </button>
         </form>
         <p className="text-left mt-3">
-          Don&apos;t have an account?{" "}
+          Don't have an account?
           <Link className="text-customOrange" to="/register">
             Sign up here
           </Link>
